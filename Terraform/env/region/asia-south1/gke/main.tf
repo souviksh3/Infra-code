@@ -92,7 +92,7 @@ module "gke_private_cluster" {
   kubernetes_version                 = "1.22.11-gke.400"
   node_pools = [
     {
-      name                           = "<node_pool_name"
+      name                           = "test-gke-cluster-nodepool"
       machine_type                   = "n2-standard-8"
       image_type                     = "UBUNTU_CONTAINERD"
       node_locations                 = "asia-south1-a"
