@@ -89,7 +89,7 @@ module "gke_private_cluster" {
   cluster_resource_labels            = {
     "owner" : "test"
   }
-  kubernetes_version                 = "1.22.8-gke.200"
+  kubernetes_version                 = "1.22.11-gke.400"
   node_pools = [
     {
       name                           = "<node_pool_name"
