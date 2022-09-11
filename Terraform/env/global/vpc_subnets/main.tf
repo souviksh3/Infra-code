@@ -60,7 +60,7 @@ module "vpc" {
     }
   ]
   secondary_ranges = {
-    "gke-pvt-as-sth1-main-vpc-subnet" = [
+    "gke-pvt-asia-sth1-main-vpc-subnet" = [
       {
         range_name    = "pod-range"
         ip_cidr_range = "10.201.0.0/16"
