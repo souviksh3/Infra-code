@@ -64,7 +64,7 @@ module "gke_private_cluster" {
   name                                  = "test-gke-cluster"
   region                                = var.region
   network                               = data.terraform_remote_state.vpc.outputs.network_name
-  subnetwork                            = data.terraform_remote_state.vpc.outputs.subnets_names
+  subnetwork                            = data.terraform_remote_state.vpc.outputs.subnets_names.id
   ip_range_pods                         = "pod-range"
   ip_range_services                     = "svc-range"
   regional                              = true
