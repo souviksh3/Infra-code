@@ -18,5 +18,5 @@
 	VPC subnets variable values
  *****************************************/
 
-project_id = "project=premium-pulsar-356204"
+project_id = "premium-pulsar-356204"
 region     = "asia-south1"
