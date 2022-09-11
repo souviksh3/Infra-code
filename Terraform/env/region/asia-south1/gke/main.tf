@@ -63,8 +63,8 @@ module "gke_private_cluster" {
   project_id                            = var.project_id
   name                                  = "test-gke-cluster"
   region                                = var.region
-  network                               = "projects/premium-pulsar-356204/global/networks/main-vpc"
-  subnetwork                            = "projects/premium-pulsar-356204/regions/asia-south1/subnetworks/gke-pvt-asia-sth1-main-vpc-subnet"
+  network                               = "main-vpc"
+  subnetwork                            = "gke-pvt-asia-sth1-main-vpc-subnet"
   ip_range_pods                         = "pod-range"
   ip_range_services                     = "svc-range"
   regional                              = true
