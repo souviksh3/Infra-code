@@ -43,8 +43,8 @@ provider "google-beta" {}
  
 terraform {
   backend "gcs" {
-    bucket = "<bucket_name>"
-    prefix = "regions/gke_cluster_public_endpoint"
+    bucket = "tfstate-bucket"
+    prefix = "regions/gke"
   }
 }
 
@@ -61,10 +61,10 @@ data "google_project" "project" {
 module "gke_private_cluster" {
   source                                = "terraform-google-modules/kubernetes-engine/google//modules/private-cluster"
   project_id                            = var.project_id
-  name                                  = "<gke_name>"
+  name                                  = "test-gke-cluster"
   region                                = var.region
-  network                               = "<vpc_name>"
-  subnetwork                            = "<subnet_name>"
+  network                               = data.terraform_remote_state.vpc.outputs.network_name
+  subnetwork                            = data.terraform_remote_state.vpc.outputs.subnets_names
   ip_range_pods                         = "pod-range"
   ip_range_services                     = "svc-range"
   regional                              = true
@@ -72,17 +72,17 @@ module "gke_private_cluster" {
   http_load_balancing                   = true
   network_policy                        = true
   horizontal_pod_autoscaling            = true
-  enable_private_endpoint               = false
+  enable_private_endpoint               = true
   enable_private_nodes                  = true
   deploy_using_private_endpoint         = true
   master_ipv4_cidr_block                = "10.3.0.0/28"
   remove_default_node_pool              = true
   initial_node_count                    = 0
-  service_account                       = "<sa_name>"
+  service_account                       = "1091219600015-compute@developer.gserviceaccount.com"
   master_authorized_networks            = [
     {
-      cidr_block   = "x.x.x.x/32" 
-      display_name = "whats-my-ip"
+      cidr_block   = "10.200.0.0/16"
+      display_name = "vpc-cider-range"
     }
   ]
 
@@ -95,9 +95,9 @@ module "gke_private_cluster" {
       name                           = "<node_pool_name"
       machine_type                   = "n2-standard-8"
       image_type                     = "UBUNTU_CONTAINERD"
-      node_locations                 = "<zone_name>"
-      min_count                      = 3
-      max_count                      = 20
+      node_locations                 = "asia-south1-a"
+      min_count                      = 1
+      max_count                      = 2
       disk_size_gb                   = 100
       enable_autoscaling             = true
       max_pods_per_node              = 110

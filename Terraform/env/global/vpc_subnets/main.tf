@@ -37,7 +37,7 @@ provider "google" {}
 
 terraform {
  backend "gcs" {
-   bucket = "<bucket_name>"
+   bucket = "tfstate-bucket"
    prefix = "global/networking/vpc_subnets"
  }
 }
@@ -50,17 +50,17 @@ module "vpc" {
   source       = "terraform-google-modules/network/google"
   version      = "~> 4.0"
   project_id   = var.project_id
-  network_name = "<vpc_name"
+  network_name = "main-vpc"
   subnets = [
     {
-      subnet_name           = "<subnet_name>"
+      subnet_name           = "gke-pvt-asia-sth1-main-vpc-subnet"
       subnet_ip             = "10.200.0.0/16"
       subnet_region         = var.region
       subnet_private_access = "true"
     }
   ]
   secondary_ranges = {
-    "<subnet_name>" = [
+    "gke-pvt-as-sth1-main-vpc-subnet" = [
       {
         range_name    = "pod-range"
         ip_cidr_range = "10.201.0.0/16"
@@ -92,7 +92,7 @@ resource "google_compute_address" "address" {
 
 resource "google_compute_router" "router" {
   project = var.project_id
-  name      = "<router_name>"
+  name      = "main-vpc-nat-router"
   network   = module.vpc.network_name 
   region    = var.region
 }
@@ -103,7 +103,7 @@ module "cloud-nat" {
   project_id                         = var.project_id
   region                             = var.region
   router                             = google_compute_router.router.name
-  name                               = "<nat_name>"
+  name                               = "main-vpc-nat"
   nat_ips                            = google_compute_address.address.*.self_link
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
   depends_on                         = [google_compute_router.router]

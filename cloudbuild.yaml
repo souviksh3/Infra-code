@@ -1,0 +1,133 @@
+steps:
+
+  # Steps to Create the tf-state bucket
+  - name: 'hashicorp/terraform:1.0.4'
+    dir: Terraform/env/global/tfstate-gcs
+    args:
+      - '-c'
+      - |
+        terraform init
+    id: terraform init
+    entrypoint: sh
+  - name: 'hashicorp/terraform:1.0.4'
+    dir: Terraform/env/global/tfstate-gcs
+    args:
+      - '-c'
+      - |
+        terraform fmt
+    id: terraform fmt
+    entrypoint: sh
+  - name: 'hashicorp/terraform:1.0.4'
+    dir: Terraform/env/global/tfstate-gcs
+    args:
+      - '-c'
+      - |
+        terraform validate
+    id: terraform validate
+    entrypoint: sh
+  - name: 'hashicorp/terraform:1.0.4'
+    dir: Terraform/env/global/tfstate-gcs
+    args:
+      - '-c'
+      - |
+        terraform plan
+    id: terraform plan
+    entrypoint: sh
+  - name: 'hashicorp/terraform:1.0.4'
+    dir: Terraform/env/global/tfstate-gcs
+    args:
+      - '-c'
+      - |
+        terraform apply -input=false -auto-approve
+    id: terraform apply
+    entrypoint: sh
+    
+    # Steps to Create the VPC and Subnet
+  - name: 'hashicorp/terraform:1.0.4'
+    dir: Terraform/env/global/vpc
+    args:
+      - '-c'
+      - |
+        terraform init
+    id: terraform init
+    entrypoint: sh
+  - name: 'hashicorp/terraform:1.0.4'
+    dir: Terraform/env/global/vpc
+    args:
+      - '-c'
+      - |
+        terraform fmt
+    id: terraform fmt
+    entrypoint: sh
+  - name: 'hashicorp/terraform:1.0.4'
+    dir: Terraform/env/global/vpc
+    args:
+      - '-c'
+      - |
+        terraform validate
+    id: terraform validate
+    entrypoint: sh
+  - name: 'hashicorp/terraform:1.0.4'
+    dir: Terraform/env/global/vpc
+    args:
+      - '-c'
+      - |
+        terraform plan
+    id: terraform plan
+    entrypoint: sh
+  - name: 'hashicorp/terraform:1.0.4'
+    dir: Terraform/env/global/vpc
+    args:
+      - '-c'
+      - |
+        terraform apply -input=false -auto-approve
+    id: terraform apply
+    entrypoint: sh
+
+   # Steps to Create the GKE cluster
+  - name: 'hashicorp/terraform:1.0.4'
+    dir: Terraform/env/region/asia-south1/gke
+    args:
+      - '-c'
+      - |
+        terraform init
+    id: terraform init
+    entrypoint: sh
+  - name: 'hashicorp/terraform:1.0.4'
+    dir: Terraform/env/region/asia-south1/gke
+    args:
+      - '-c'
+      - |
+        terraform fmt
+    id: terraform fmt
+    entrypoint: sh
+  - name: 'hashicorp/terraform:1.0.4'
+    dir: Terraform/env/region/asia-south1/gke
+    args:
+      - '-c'
+      - |
+        terraform validate
+    id: terraform validate
+    entrypoint: sh
+  - name: 'hashicorp/terraform:1.0.4'
+    dir: Terraform/env/region/asia-south1/gke
+    args:
+      - '-c'
+      - |
+        terraform plan
+    id: terraform plan
+    entrypoint: sh
+  - name: 'hashicorp/terraform:1.0.4'
+    dir: Terraform/env/region/asia-south1/gke
+    args:
+      - '-c'
+      - |
+        terraform apply -input=false -auto-approve
+    id: terraform apply
+    entrypoint: sh
+
+
+logsBucket: 'gs://logs-bucket-cloudbuild'
+options:
+  logging: GCS_ONLY
+timeout: 86400s

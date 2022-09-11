@@ -13,10 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+ 
 /******************************************
-  GKE Details 
+	GCS bucket variables
  *****************************************/
+variable "project_id" {
+  description = "The ID of the project to create the bucket in."
+  type        = string
+}
 
-project_id  = "premium-pulsar-356204"
-region      = "asia-south1"
+variable "location" {
+  description = "The location of the bucket."
+  type        = string
+}
+

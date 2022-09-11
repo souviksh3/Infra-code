@@ -13,10 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
+ 
 /******************************************
-  GKE Details 
+	GCS bucket variable values
  *****************************************/
-
-project_id  = "premium-pulsar-356204"
-region      = "asia-south1"
+project_id    = "premium-pulsar-356204"
+location      = "asia-south1"
