@@ -43,7 +43,7 @@ provider "google-beta" {}
  
 terraform {
   backend "gcs" {
-    bucket = "tfstate-bucket"
+    bucket = "tfstate-bucket-gcp"
     prefix = "regions/gke"
   }
 }

@@ -37,7 +37,7 @@ provider "google" {}
 
 terraform {
  backend "gcs" {
-   bucket = "tfstate-bucket"
+   bucket = "tfstate-bucket-gcp"
    prefix = "global/networking/vpc_subnets"
  }
 }
